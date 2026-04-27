@@ -26,7 +26,6 @@
             --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
             --glass-bg: rgba(255, 255, 255, 0.85);
-            --nav-bg: rgba(255, 255, 255, 0.9);
         }
 
         [data-theme="dark"] {
@@ -44,7 +43,6 @@
             --bubble-out-text: #FFFFFF; 
             --bubble-in-text: #F9FAFB;
             --glass-bg: rgba(31, 41, 55, 0.85);
-            --nav-bg: rgba(31, 41, 55, 0.9);
         }
 
         /* ── RESET & BASE ── */
@@ -61,12 +59,12 @@
         .shimmer{ background:linear-gradient(90deg,var(--surface-hover) 25%,var(--border) 50%,var(--surface-hover) 75%); background-size:200% 100%; animation:shimmer 1.6s infinite; border-radius:6px; }
 
         /* ── APP SHELL ── */
-        .app { display: flex; height: 100%; max-width: 1200px; margin: 0 auto; background: var(--surface); box-shadow: var(--shadow-lg); position: relative; }
+        .app { display: flex; height: 100%; max-width: 1200px; margin: 0 auto; background: var(--surface); box-shadow: var(--shadow-lg); }
         @media(min-width: 1000px) { .app { margin: 20px auto; height: calc(100% - 40px); border-radius: 24px; overflow: hidden; border: 1px solid var(--border); } }
 
         /* ── SIDEBAR ── */
-        .sidebar { width: 350px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--surface); border-right: 1px solid var(--border); transition: transform 0.3s ease; position: relative; }
-        @media(max-width:768px){ .sidebar { position: fixed; inset: 0; width: 100%; z-index: 10; padding-bottom: 80px; } .sidebar.slide-out { transform: translateX(-100%); } }
+        .sidebar { width: 350px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--surface); border-right: 1px solid var(--border); transition: transform 0.3s ease; }
+        @media(max-width:768px){ .sidebar { position: fixed; inset: 0; width: 100%; z-index: 10; } .sidebar.slide-out { transform: translateX(-100%); } }
 
         .sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: calc(env(safe-area-inset-top) + 24px) 24px 16px; background: var(--surface); border-bottom: 1px solid var(--border); }
         .sidebar-title { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
@@ -94,48 +92,23 @@
         .unread-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); display: none; flex-shrink: 0; animation: badgePop 0.3s ease-out; }
         .conv-item.unread .unread-dot { display: block; }
 
-        /* ── FLOATING BOTTOM NAV ── */
-        .floating-nav {
-            position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
-            width: calc(100% - 48px); max-width: 400px;
-            background: var(--nav-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border); border-radius: 30px;
-            display: flex; justify-content: space-around; align-items: center; padding: 12px 8px;
-            box-shadow: var(--shadow-lg); z-index: 50; transition: transform 0.3s ease;
-        }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-secondary); font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s; flex: 1; }
-        .nav-item i { width: 22px; height: 22px; }
-        .nav-item.active { color: var(--primary); }
-        .nav-item:hover { transform: translateY(-2px); color: var(--primary); }
-        @media(min-width: 769px) { .floating-nav { display: none; } }
-
         /* ── CHAT PANE ── */
         .chat-pane { flex: 1; display: flex; flex-direction: column; background: var(--background); position: relative; min-width: 0; }
         @media(max-width:768px){ .chat-pane { position: fixed; inset: 0; z-index: 200; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); } .chat-pane.open { transform: translateX(0); } }
 
-        /* ── GLASS HEADER & SEARCH ── */
+        /* ── GLASS HEADER ── */
         .chat-header {
             position: absolute; top: 0; left: 0; right: 0; z-index: 100;
             display: flex; align-items: center; justify-content: space-between;
-            padding: calc(env(safe-area-inset-top) + 16px) 16px 16px;
+            padding: calc(env(safe-area-inset-top) + 16px) 24px 16px;
             background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border); transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border);
         }
-        .chat-header-center { display: flex; flex-direction: column; align-items: flex-start; flex: 1; cursor: pointer; min-width: 0; margin-left: 12px; transition: opacity 0.2s; }
-        .chat-avatar { width: 40px; height: 40px; border-radius: 14px; object-fit: cover; }
-        .header-profile-wrap { display: flex; align-items: center; gap: 4px; flex: 1;}
-        .chat-name { font-size: 16px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .chat-header-center { display: flex; flex-direction: column; align-items: center; flex: 1; cursor: pointer; min-width: 0; }
+        .chat-avatar { width: 40px; height: 40px; border-radius: 14px; margin-bottom: 4px; object-fit: cover; }
+        .chat-name { font-size: 16px; font-weight: 700; text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .chat-sub { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
         .chat-sub.online-text { color: var(--primary); }
-
-        .header-search-container {
-            display: none; flex: 1; align-items: center; background: var(--surface-hover);
-            border-radius: 20px; padding: 6px 12px; margin: 0 12px; border: 1px solid var(--border);
-            animation: fadeUp 0.2s ease;
-        }
-        .header-search-container.active { display: flex; }
-        .header-search-input { flex: 1; border: none; outline: none; background: transparent; color: var(--text-primary); font-size: 14px; margin-left: 8px; }
-        .header-search-input::placeholder { color: var(--text-muted); }
 
         /* ── AI TOGGLE ── */
         .ai-toggle-container { display: flex; align-items: center; gap: 8px; background: var(--surface-hover); padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border); }
@@ -166,7 +139,6 @@
         .msg-row.in { justify-content: flex-start; }
         .msg-row.out { justify-content: flex-end; }
         .msg-row.gap { margin-top: 16px; }
-        .msg-row.offline-msg { opacity: 0.7; }
 
         .msg-avatar-sm { width: 28px; height: 28px; border-radius: 10px; object-fit: cover; flex-shrink: 0; cursor: pointer; }
         .msg-avatar-sm.hidden { opacity: 0; pointer-events: none; }
@@ -253,15 +225,11 @@
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
         
         .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto;}
-
-        .offline-banner { display: none; background: #FF9800; color: white; text-align: center; font-size: 12px; padding: 4px; font-weight: 600; position: absolute; top: 0; left: 0; right: 0; z-index: 101; }
-        .offline-banner.active { display: block; }
     </style>
 </head>
 <body>
 
 <div class="toast" id="toast"></div>
-<div class="offline-banner" id="offline-banner">You are currently offline. Working from local storage.</div>
 
 <div class="confirm-modal-overlay" id="confirm-overlay" onclick="closeConfirm(event)">
     <div class="confirm-modal">
@@ -315,13 +283,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="floating-nav">
-            <div class="nav-item active"><i data-feather="message-circle"></i><span>Chats</span></div>
-            <div class="nav-item"><i data-feather="phone"></i><span>Calls</span></div>
-            <div class="nav-item"><i data-feather="users"></i><span>Communities</span></div>
-            <div class="nav-item"><i data-feather="settings"></i><span>Settings</span></div>
-        </div>
     </div>
 
     <div class="chat-pane" id="chat-pane">
@@ -339,21 +300,13 @@
                     <i data-feather="chevron-left"></i>
                 </button>
                 
-                <div class="header-profile-wrap" id="header-profile-wrap">
+                <div class="chat-header-center" onclick="goToOtherProfile()">
                     <img id="chat-avatar" class="chat-avatar" src="" alt="">
-                    <div class="chat-header-center" onclick="goToOtherProfile()">
-                        <div class="chat-name" id="chat-name">—</div>
-                        <div class="chat-sub" id="chat-last-seen">Active today</div>
-                    </div>
+                    <div class="chat-name" id="chat-name">—</div>
+                    <div class="chat-sub" id="chat-last-seen">Active today</div>
                 </div>
 
-                <div class="header-search-container" id="header-search-container">
-                    <i data-feather="search" style="color: var(--text-secondary); width: 16px; height: 16px;"></i>
-                    <input type="text" class="header-search-input" id="header-search-input" placeholder="Search...">
-                    <i data-feather="x" style="color: var(--text-secondary); width: 16px; height: 16px; cursor: pointer;" onclick="toggleChatSearch()"></i>
-                </div>
-
-                <div class="chat-actions" style="display: flex; gap: 8px; align-items: center;" id="chat-header-actions">
+                <div class="chat-actions" style="display: flex; gap: 8px; align-items: center;">
                     <div class="ai-toggle-container" id="ai-toggle-container" title="Let Ona AI reply for you">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="url(#gemini-gradient)" stroke="none">
                             <defs>
@@ -370,7 +323,6 @@
                           <span class="slider"></span>
                         </label>
                     </div>
-                    <button class="icon-btn" onclick="toggleChatSearch()"><i data-feather="search"></i></button>
                 </div>
             </div>
 
@@ -427,28 +379,18 @@ remoteConfig.settings.minimumFetchIntervalMillis = 0;
 const savedTheme = localStorage.getItem('vynix_theme') || 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
 
-// ── UI TOGGLES ──
-window.toggleChatSearch = () => {
-    const wrap = document.getElementById('header-profile-wrap');
-    const search = document.getElementById('header-search-container');
-    const actions = document.getElementById('chat-header-actions');
-    const input = document.getElementById('header-search-input');
-    if (search.classList.contains('active')) {
-        search.classList.remove('active'); wrap.style.display = 'flex'; actions.style.display = 'flex';
-        input.value = '';
-    } else {
-        search.classList.add('active'); wrap.style.display = 'none'; actions.style.display = 'none';
-        input.focus();
-    }
-};
-
 // ── AI CONFIG & STATE ──
 let XAI_API_KEY = "";
 let isAIToggledOn = false;
 let isAIGenerating = false;
-const API_BASE = "https://api.x.ai/v1"; 
+const API_BASE = "https://api.x.ai/v1"; // Standard fallback, adjust if needed
 
-const AI_USER = { uid: 'ai_system', displayName: 'Ona AI', username: 'ona_ai', photoURL: 'https://ui-avatars.com/api/?name=Ona+AI&background=C5A059&color=fff' };
+const AI_USER = {
+    uid: 'ai_system',
+    displayName: 'Ona AI',
+    username: 'ona_ai',
+    photoURL: 'https://ui-avatars.com/api/?name=Ona+AI&background=C5A059&color=fff'
+};
 
 async function loadAIKey() {
     try {
@@ -461,21 +403,19 @@ loadAIKey();
 window.toggleAImode = () => {
     isAIToggledOn = document.getElementById('ai-toggle').checked;
     const suggContainer = document.getElementById('ai-suggestions-container');
-    if (isAIToggledOn) { suggContainer.style.display = 'none'; showToast('Ona AI Auto-Reply Enabled'); } 
-    else { showToast('Ona AI Auto-Reply Disabled'); }
+    if (isAIToggledOn) {
+        suggContainer.style.display = 'none';
+        showToast('Ona AI Auto-Reply Enabled');
+    } else {
+        showToast('Ona AI Auto-Reply Disabled');
+    }
 };
 
-// ── ENCRYPTION & OFFLINE DB ──
+// ── ENCRYPTION ──
 const IDB_DB='vynix-e2e', IDB_STORE='keys';
 function openIDB(){return new Promise((res,rej)=>{const r=indexedDB.open(IDB_DB,1);r.onupgradeneeded=e=>e.target.result.createObjectStore(IDB_STORE);r.onsuccess=e=>res(e.target.result);r.onerror=e=>rej(e.target.error);});}
 async function idbGet(k){const d=await openIDB();return new Promise((res,rej)=>{const r=d.transaction(IDB_STORE,'readonly').objectStore(IDB_STORE).get(k);r.onsuccess=e=>res(e.target.result);r.onerror=e=>rej(e.target.error);});}
 async function idbSet(k,v){const d=await openIDB();return new Promise((res,rej)=>{const tx=d.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).put(v,k);tx.oncomplete=res;tx.onerror=e=>rej(e.target.error);});}
-
-const OFF_DB='vynix-offline', OFF_STORE='store';
-function openOffDB(){return new Promise((res,rej)=>{const r=indexedDB.open(OFF_DB,1);r.onupgradeneeded=e=>e.target.result.createObjectStore(OFF_STORE);r.onsuccess=e=>res(e.target.result);r.onerror=e=>rej(e.target.error);});}
-async function offGet(k){const d=await openOffDB();return new Promise((res,rej)=>{const r=d.transaction(OFF_STORE,'readonly').objectStore(OFF_STORE).get(k);r.onsuccess=e=>res(e.target.result);r.onerror=e=>rej(e.target.error);});}
-async function offSet(k,v){const d=await openOffDB();return new Promise((res,rej)=>{const tx=d.transaction(OFF_STORE,'readwrite');tx.objectStore(OFF_STORE).put(v,k);tx.oncomplete=res;tx.onerror=e=>rej(e.target.error);});}
-
 const b64e=b=>btoa(String.fromCharCode(...new Uint8Array(b)));
 const b64d=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 async function getOrCreateKP(uid){const stored=await idbGet(`kp-${uid}`);if(stored)return stored;const kp=await crypto.subtle.generateKey({name:'ECDH',namedCurve:'P-256'},true,['deriveKey','deriveBits']);await idbSet(`kp-${uid}`,kp);return kp;}
@@ -514,17 +454,23 @@ window.sendSticker = async (url) => {
     document.getElementById('sticker-picker').classList.remove('show');
     const ts = Date.now();
     
-    if (otherUid === 'ai_system') { showToast("Ona AI doesn't understand stickers yet!"); return; }
+    if (otherUid === 'ai_system') { showToast("Ona AI doesn't understand stickers yet!"); return; } // Prevent stickers to AI
 
     const msgData = { senderId: me.uid, timestamp: ts, imageUrl: url, read: false, isSticker: true };
-    await processMessageSend(msgData, 'Sent a sticker');
+    await push(ref(db, `messages/${chatId}/msgs`), msgData);
+    const ocSnap = await get(ref(db, `userChats/${otherUid}/${chatId}`));
+    const pU = (ocSnap.exists() ? ocSnap.val().unreadCount : 0) || 0;
+    const upd = {};
+    upd[`userChats/${me.uid}/${chatId}`] = { lastTs: ts, lastMsg: 'Sent a sticker', otherUid, unreadCount: 0 };
+    upd[`userChats/${otherUid}/${chatId}`] = { lastTs: ts, lastMsg: 'Sent a sticker', otherUid: me.uid, unreadCount: pU + 1 };
+    await update(ref(db), upd);
+    scrollBot();
 };
 
 onAuthStateChanged(auth,async user=>{
     if(!user){window.location.href='signup.html';return;}
     me=user; await loadMe(); await setupKeys();
     setupMyPresence(); listenConvs(); feather.replace();
-    syncOfflineData();
 });
 
 // ── UTILS & MODALS ──
@@ -542,26 +488,6 @@ window.showToast = (msg) => { const t = document.getElementById('toast'); t.text
 window.openAvatarModal = (src) => { if (!src) return; document.getElementById('avatar-modal-img').src = src; document.getElementById('avatar-modal').classList.add('open'); history.pushState({ page: 'avatar-modal' }, ''); };
 window.closeAvatarModal = () => { document.getElementById('avatar-modal').classList.remove('open'); };
 
-// ── OFFLINE SYNC SYSTEM ──
-window.addEventListener('online', () => { document.getElementById('offline-banner').classList.remove('active'); syncOfflineData(); listenConvs(); if(chatId) {listenMsgs(chatId); listenTyping(chatId,otherUid);} });
-window.addEventListener('offline', () => { document.getElementById('offline-banner').classList.add('active'); });
-
-async function syncOfflineData() {
-    if(!navigator.onLine) return;
-    const pending = await offGet('pending-msgs') || [];
-    if (!pending.length) return;
-    
-    showToast('Syncing pending messages...');
-    const stillPending = [];
-    for (let p of pending) {
-        try {
-            await push(ref(db, `messages/${p.cid}/msgs`), p.msgData);
-            await update(ref(db), p.upd);
-        } catch(e) { stillPending.push(p); }
-    }
-    await offSet('pending-msgs', stillPending);
-}
-
 // ── PRESENCE ──
 function setupMyPresence() {
     const myConnectionsRef = ref(db, `users/${me.uid}/online`);
@@ -572,41 +498,23 @@ function setupMyPresence() {
 }
 async function loadMe(){ const s=await get(ref(db,`users/${me.uid}`)); meData=s.val()||{uid:me.uid,displayName:'User',username:'user',photoURL:au({uid:me.uid})}; document.getElementById('me-username').textContent = meData.username || 'Vynix'; }
 async function setupKeys(){ myKP=await getOrCreateKP(me.uid); const pub=await exportPub(myKP); const snap=await get(ref(db,`users/${me.uid}/pubKey`)); if(!snap.exists()||snap.val()!==pub) await update(ref(db,`users/${me.uid}`),{pubKey:pub}); }
-
-async function deriveSharedKey(uid){ 
-    let pub = await offGet(`pub-${uid}`);
-    if(!pub && navigator.onLine) {
-        const snap=await get(ref(db,`users/${uid}/pubKey`)); 
-        if(snap.exists()){ pub = snap.val(); await offSet(`pub-${uid}`, pub); }
-    }
-    if(!pub) return null;
-    return getSharedKey(myKP,pub); 
-}
+async function deriveSharedKey(uid){ const snap=await get(ref(db,`users/${uid}/pubKey`)); if(!snap.exists())return null; return getSharedKey(myKP,snap.val()); }
 
 // ── CONV LIST WITH AI ──
-async function listenConvs(){
-    if(!navigator.onLine) {
-        const cached = await offGet('convs') || [];
-        renderConvList(cached);
-        return;
-    }
-
+function listenConvs(){
     onValue(ref(db,`userChats/${me.uid}`),async snap=>{
         document.getElementById('skeletons')?.remove();
         const entries=[], ps=[];
+        
+        // 1. Regular Chats
         if(snap.exists()){
             snap.forEach(child=>{
                 if (child.key.startsWith('ai_')) return;
                 const d={chatId:child.key,...child.val()};
                 ps.push((async()=>{
                     if(!d.otherUid)return;
-                    let uData = await offGet(`uData-${d.otherUid}`);
-                    if(!uData || navigator.onLine) {
-                        const us=await get(ref(db,`users/${d.otherUid}`));
-                        uData = us.val()||{displayName:'User',photoURL:au({uid:d.otherUid}),username:'user'};
-                        await offSet(`uData-${d.otherUid}`, uData);
-                    }
-                    d.od=uData;
+                    const us=await get(ref(db,`users/${d.otherUid}`));
+                    d.od=us.val()||{displayName:'User',photoURL:au({uid:d.otherUid}),username:'user'};
                     if(d.lastIv&&d.lastCt){try{const sk=await deriveSharedKey(d.otherUid);d.lastMsg=sk?await decMsg(sk,d.lastIv,d.lastCt):'🔒 Encrypted';}catch{d.lastMsg='🔒 Encrypted';}}
                     else d.lastMsg=d.lastMsg||'';
                     entries.push(d);
@@ -615,15 +523,16 @@ async function listenConvs(){
         }
         await Promise.all(ps);
 
+        // 2. Inject AI Chat
         const aiChatId = `ai_${me.uid}`;
         const aiSnap = snap.exists() ? snap.child(aiChatId) : null;
         let aiChatData = aiSnap && aiSnap.exists() ? aiSnap.val() : null;
+        
         if (!aiChatData) aiChatData = { lastTs: Date.now() - 86400000, lastMsg: 'How can I help you today?', unreadCount: 0 };
         
         entries.push({ chatId: aiChatId, otherUid: 'ai_system', ...aiChatData, od: AI_USER });
         entries.sort((a,b)=>(b.lastTs||0)-(a.lastTs||0));
         allConvs=entries; renderConvList(entries);
-        await offSet('convs', entries);
     });
 }
 
@@ -636,7 +545,7 @@ function renderConvList(convs){
         item.className=`conv-item${isAct?' active':''}${unread>0?' unread':''}`;
         item.id=`conv-${c.chatId}`;
 
-        if (!activeTypingListeners.has(c.chatId) && navigator.onLine) {
+        if (!activeTypingListeners.has(c.chatId)) {
             activeTypingListeners.add(c.chatId);
             onValue(ref(db, `messages/${c.chatId}/typing/${c.otherUid}`), snap => {
                 const el = document.getElementById(`conv-${c.chatId}`);
@@ -665,8 +574,6 @@ function renderConvList(convs){
 window.openNewChat = async () => {
     document.getElementById('new-chat-modal').classList.add('open'); history.pushState({ page: 'new-chat-modal' }, '');
     document.getElementById('users-list').innerHTML = `<div style="padding:30px;"><div class="spinner"></div></div>`;
-    if(!navigator.onLine) { document.getElementById('users-list').innerHTML = '<div style="padding:20px;text-align:center;">Cannot search offline.</div>'; return; }
-    
     const snap = await get(ref(db, 'users'));
     allUsers = [];
     if (snap.exists()) { snap.forEach(child => { const u = child.val(); if (child.key !== me.uid) allUsers.push({uid: child.key, ...u}); }); }
@@ -691,12 +598,10 @@ async function startChatWith(user) {
     closeNewChat();
     const chatIdNew = [me.uid, user.uid].sort().join('_');
     await openChat(chatIdNew, user.uid);
-    if(navigator.onLine){
-        const updates = {};
-        const myEntry = await get(ref(db, `userChats/${me.uid}/${chatIdNew}`)); if (!myEntry.exists()) updates[`userChats/${me.uid}/${chatIdNew}`] = { otherUid: user.uid, lastTs: Date.now(), lastMsg: '', unreadCount: 0 };
-        const theirEntry = await get(ref(db, `userChats/${user.uid}/${chatIdNew}`)); if (!theirEntry.exists()) updates[`userChats/${user.uid}/${chatIdNew}`] = { otherUid: me.uid, lastTs: Date.now(), lastMsg: '', unreadCount: 0 };
-        if (Object.keys(updates).length) await update(ref(db), updates);
-    }
+    const updates = {};
+    const myEntry = await get(ref(db, `userChats/${me.uid}/${chatIdNew}`)); if (!myEntry.exists()) updates[`userChats/${me.uid}/${chatIdNew}`] = { otherUid: user.uid, lastTs: Date.now(), lastMsg: '', unreadCount: 0 };
+    const theirEntry = await get(ref(db, `userChats/${user.uid}/${chatIdNew}`)); if (!theirEntry.exists()) updates[`userChats/${user.uid}/${chatIdNew}`] = { otherUid: me.uid, lastTs: Date.now(), lastMsg: '', unreadCount: 0 };
+    if (Object.keys(updates).length) await update(ref(db), updates);
 }
 
 // ── OPEN CHAT ──
@@ -712,24 +617,15 @@ window.openChat=async(cid,uid)=>{
         ls.textContent = 'Always online'; ls.classList.add('online-text');
         document.getElementById('ai-toggle-container').style.display = 'none';
     } else {
-        let uData = await offGet(`uData-${uid}`);
-        if(!uData || navigator.onLine) {
-            const us=await get(ref(db,`users/${uid}`));
-            uData=us.val()||{displayName:'User',photoURL:au({uid}),username:uid};
-            await offSet(`uData-${uid}`, uData);
-        }
-        otherData = uData;
-        
-        if(navigator.onLine){
-            presenceRef = ref(db, `users/${uid}`);
-            onValue(presenceRef, snap => {
-                const data = snap.val();
-                if(data && data.online) { ls.textContent = 'Active now'; ls.classList.add('online-text'); } 
-                else if(data && data.lastSeen) { ls.textContent = `Active ${fmtTime(data.lastSeen)} ago`; ls.classList.remove('online-text'); } 
-                else { ls.textContent = ''; }
-            });
-        } else { ls.textContent = 'Offline (You are disconnected)'; ls.classList.remove('online-text'); }
-        
+        const us=await get(ref(db,`users/${uid}`));
+        otherData=us.val()||{displayName:'User',photoURL:au({uid}),username:uid};
+        presenceRef = ref(db, `users/${uid}`);
+        onValue(presenceRef, snap => {
+            const data = snap.val();
+            if(data && data.online) { ls.textContent = 'Active now'; ls.classList.add('online-text'); } 
+            else if(data && data.lastSeen) { ls.textContent = `Active ${fmtTime(data.lastSeen)} ago`; ls.classList.remove('online-text'); } 
+            else { ls.textContent = ''; }
+        });
         chatSK=await deriveSharedKey(uid);
         document.getElementById('ai-toggle-container').style.display = 'flex';
     }
@@ -744,27 +640,15 @@ window.openChat=async(cid,uid)=>{
     document.getElementById('ai-suggestions-container').style.display = 'none';
 
     if(window.innerWidth<=768){ document.getElementById('chat-pane').classList.add('open'); document.getElementById('sidebar').classList.add('slide-out'); history.pushState({ page: 'chat' }, ''); }
-    if(navigator.onLine) await update(ref(db,`userChats/${me.uid}/${cid}`),{unreadCount:0}).catch(()=>{});
+    await update(ref(db,`userChats/${me.uid}/${cid}`),{unreadCount:0}).catch(()=>{});
+    listenMsgs(cid); listenTyping(cid,uid);
     
-    // OFFLINE: Render cached messages instantly
-    let chatCache = await offGet(`msgs-${cid}`) || [];
-    for(let msg of chatCache) {
-        const row = document.createElement('div'); row.id = `msg-${msg.id}`; row.dataset.sender = msg.senderId;
-        area.appendChild(row);
-        await renderMsgContent(row, msg);
-    }
-    scrollBot();
-
-    if(navigator.onLine) {
-        listenMsgs(cid); 
-        listenTyping(cid,uid);
-    }
-    setTimeout(()=>document.getElementById('msg-input')?.focus(),350);
+    scrollBot(); setTimeout(()=>document.getElementById('msg-input')?.focus(),350);
 };
 
 window.closeChat=()=>{
     document.getElementById('chat-pane').classList.remove('open'); document.getElementById('sidebar').classList.remove('slide-out');
-    if(presenceRef && navigator.onLine) try{off(presenceRef)}catch{}
+    if(presenceRef) off(presenceRef);
     chatId=null;otherUid=null;otherData=null;chatSK=null;
     document.querySelectorAll('.conv-item').forEach(el=>el.classList.remove('active'));
     document.getElementById('chat-empty').style.display='flex'; document.getElementById('chat-view').style.display='none';
@@ -776,7 +660,7 @@ function getRecentContext() {
     return rows.map(r => { const role = r.classList.contains('out') ? 'assistant' : 'user'; const bubble = r.querySelector('.bubble'); return { role, content: bubble ? bubble.textContent : '[Media]' }; });
 }
 async function callAIApi(messages, systemPrompt) {
-    if (!XAI_API_KEY || !navigator.onLine) return null;
+    if (!XAI_API_KEY) return null;
     try {
         const res = await fetch(`${API_BASE}/chat/completions`, {
             method: 'POST', headers: { 'Authorization': `Bearer ${XAI_API_KEY}`, 'Content-Type': 'application/json' },
@@ -788,7 +672,7 @@ async function callAIApi(messages, systemPrompt) {
 }
 
 async function handleAIAutoReply() {
-    if (isAIGenerating || otherUid === 'ai_system' || !navigator.onLine) return;
+    if (isAIGenerating || otherUid === 'ai_system') return;
     isAIGenerating = true; startTyping();
     const systemPrompt = `You are an AI auto-replying for the user. Chatting with ${otherData?.displayName}. Keep it short and friendly.`;
     const aiResponseText = await callAIApi(getRecentContext(), systemPrompt);
@@ -797,7 +681,7 @@ async function handleAIAutoReply() {
 }
 
 async function handleAISuggestions() {
-    if (isAIGenerating || otherUid === 'ai_system' || !navigator.onLine) return;
+    if (isAIGenerating || otherUid === 'ai_system') return;
     isAIGenerating = true;
     const container = document.getElementById('ai-suggestions-container');
     container.innerHTML = `<div class="suggestion-pill generating"><div class="spinner" style="width:14px;height:14px;border-width:2px;margin:0"></div> Generating...</div>`;
@@ -818,7 +702,7 @@ async function handleAISuggestions() {
 }
 window.sendSuggestion = (el, text) => { document.getElementById('ai-suggestions-container').style.display = 'none'; window.sendMessage(text); }
 
-// ── SEND MESSAGE & OFFLINE QUEUE ──
+// ── SEND MESSAGE ──
 window.sendMessage = async (textOverride = null) => {
     const input = document.getElementById('msg-input');
     const text = textOverride || input.value.trim();
@@ -833,8 +717,8 @@ window.sendMessage = async (textOverride = null) => {
     let msgData={senderId:me.uid, timestamp:ts, read: false};
     let previewUpdates={lastTs:ts};
 
+    // 1. AI Direct Chat Logic
     if (otherUid === 'ai_system') {
-        if(!navigator.onLine){ showToast("Ona AI requires an internet connection."); return; }
         msgData.text = text; previewUpdates.lastMsg = text;
         await push(ref(db,`messages/${chatId}/msgs`),msgData);
         await update(ref(db, `userChats/${me.uid}/${chatId}`), previewUpdates);
@@ -852,93 +736,52 @@ window.sendMessage = async (textOverride = null) => {
         return;
     }
     
+    // 2. Normal E2E Chat Logic
     if(chatSK){
         const enc=await encMsg(chatSK,text), pEnc=await encMsg(chatSK,text);
         msgData.iv=enc.iv; msgData.ct=enc.ct;
         previewUpdates.lastIv=pEnc.iv; previewUpdates.lastCt=pEnc.ct; previewUpdates.lastMsg='';
     } else { msgData.text=text; previewUpdates.lastMsg=text; }
     
-    await processMessageSend(msgData, text);
-};
-
-async function processMessageSend(msgData, plainPreview) {
-    const ts = msgData.timestamp;
+    await push(ref(db,`messages/${chatId}/msgs`),msgData);
+    const ocSnap=await get(ref(db,`userChats/${otherUid}/${chatId}`));
+    const pU=(ocSnap.exists()?ocSnap.val().unreadCount:0)||0;
     const upd={};
-    const ocSnap = navigator.onLine ? await get(ref(db,`userChats/${otherUid}/${chatId}`)) : null;
-    const pU = (ocSnap && ocSnap.exists() ? ocSnap.val().unreadCount : 0) || 0;
-    
-    let previewUpdates = {lastTs: ts};
-    if(msgData.iv && msgData.ct){
-        previewUpdates.lastIv = msgData.iv; previewUpdates.lastCt = msgData.ct; previewUpdates.lastMsg='';
-    } else { previewUpdates.lastMsg = plainPreview; }
-
     upd[`userChats/${me.uid}/${chatId}`]={...previewUpdates,otherUid,unreadCount:0};
     upd[`userChats/${otherUid}/${chatId}`]={...previewUpdates,otherUid:me.uid,unreadCount:pU+1};
-
-    if (!navigator.onLine) {
-        const pending = await offGet('pending-msgs') || [];
-        pending.push({ cid: chatId, msgData, upd });
-        await offSet('pending-msgs', pending);
-        showToast('Offline. Message queued.');
-        
-        const tempId = 'temp-' + ts;
-        const area = document.getElementById('messages-area');
-        const row = document.createElement('div'); row.id = `msg-${tempId}`; row.dataset.sender = me.uid;
-        area.appendChild(row);
-        await renderMsgContent(row, {id: tempId, ...msgData});
-        row.classList.add('offline-msg');
-        scrollBot();
-        return;
-    }
-
-    await push(ref(db,`messages/${chatId}/msgs`),msgData);
-    await update(ref(db),upd); 
-    scrollBot();
-}
+    await update(ref(db),upd); scrollBot();
+};
 
 window.onMsgInput=()=>{ resizeInput(); const h=document.getElementById('msg-input').value.trim().length>0; const btn=document.getElementById('send-btn'); if(h){btn.classList.add('show');btn.disabled=false;startTyping();}else{btn.classList.remove('show');btn.disabled=true;stopTyping();} };
 window.onMsgKeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();window.sendMessage();}};
 function resizeInput(){const el=document.getElementById('msg-input');el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
-function startTyping(){if(!chatId || otherUid === 'ai_system' || !navigator.onLine)return;set(ref(db,`messages/${chatId}/typing/${me.uid}`),true);clearTimeout(typingTimer);typingTimer=setTimeout(stopTyping,3000);}
-function stopTyping(){if(!chatId || otherUid === 'ai_system' || !navigator.onLine)return;remove(ref(db,`messages/${chatId}/typing/${me.uid}`));clearTimeout(typingTimer);}
+function startTyping(){if(!chatId || otherUid === 'ai_system')return;set(ref(db,`messages/${chatId}/typing/${me.uid}`),true);clearTimeout(typingTimer);typingTimer=setTimeout(stopTyping,3000);}
+function stopTyping(){if(!chatId || otherUid === 'ai_system')return;remove(ref(db,`messages/${chatId}/typing/${me.uid}`));clearTimeout(typingTimer);}
 function listenTyping(cid,uid){onValue(ref(db,`messages/${cid}/typing/${uid}`),snap=>{const sl=document.getElementById('typing-slot');if(snap.exists()){sl.style.display='block';scrollBot();}else sl.style.display='none';});}
 
 // ── LISTEN MSGS & RENDER ──
 function listenMsgs(cid){
     loadedIds.clear();
-    onChildAdded(ref(db,`messages/${cid}/msgs`), async snap => {
+    onChildAdded(ref(db,`messages/${cid}/msgs`), snap => {
         if(loadedIds.has(snap.key))return; loadedIds.add(snap.key);
-        const msg = snap.val(); msg.id = snap.key;
-        
+        const msg = snap.val();
         if (msg.senderId !== me.uid && !msg.read) update(ref(db, `messages/${cid}/msgs/${snap.key}`), {read: true}).catch(()=>{});
         
-        // Remove optimistic pending duplicates based on timestamp matching (approx logic)
         const area = document.getElementById('messages-area');
-        if (msg.senderId === me.uid) {
-            const pendingNodes = area.querySelectorAll('.offline-msg');
-            pendingNodes.forEach(n => { if (Math.abs(parseInt(n.id.replace('msg-temp-','')) - msg.timestamp) < 5000) n.remove(); });
-        }
-
         const msgDate = new Date(msg.timestamp || Date.now()).toDateString();
         const lastSep = area.querySelector('.date-sep:last-of-type');
         if(!lastSep || lastSep.dataset.date !== msgDate){
             const s = document.createElement('div'); s.className = 'date-sep'; s.dataset.date = msgDate; s.textContent = fmtDateSep(msg.timestamp); area.appendChild(s);
         }
-        
-        if (!document.getElementById(`msg-${snap.key}`)) {
-            const row = document.createElement('div'); row.id = `msg-${snap.key}`; row.dataset.sender = msg.senderId; area.appendChild(row);
-            await renderMsgContent(row, msg);
+        const row = document.createElement('div'); row.id = `msg-${snap.key}`; row.dataset.sender = msg.senderId; area.appendChild(row);
+
+        renderMsgContent(row, {id:snap.key,...msg}).then(() => {
             scrollBot();
-        }
-
-        // Cache message for offline
-        let chatCache = await offGet(`msgs-${cid}`) || [];
-        if(chatCache.findIndex(m => m.id === msg.id) === -1) { chatCache.push(msg); await offSet(`msgs-${cid}`, chatCache); }
-
-        if(msg.senderId !== me.uid && chatId === cid) {
-            update(ref(db,`userChats/${me.uid}/${cid}`), {unreadCount:0}).catch(()=>{});
-            if(otherUid !== 'ai_system') { if (isAIToggledOn) handleAIAutoReply(); else handleAISuggestions(); }
-        }
+            if (msg.senderId !== me.uid && chatId === cid && otherUid !== 'ai_system') {
+                if (isAIToggledOn) handleAIAutoReply(); else handleAISuggestions();
+            }
+        });
+        if(msg.senderId !== me.uid && chatId === cid) update(ref(db,`userChats/${me.uid}/${cid}`), {unreadCount:0}).catch(()=>{});
     });
 
     onChildChanged(ref(db,`messages/${cid}/msgs`), snap => {
@@ -970,9 +813,10 @@ async function renderMsgContent(row, msg) {
     row.innerHTML = `${!isMine ? `<img class="msg-avatar-sm${showAv ? '' : ' hidden'}" src="${avSrc}" alt="">` : ''} <div class="msg-content">${bubbleHTML} <div class="msg-meta"><span>${fmtMsgTime(msg.timestamp)}</span>${tickHTML}</div></div>`;
 }
 
+function scrollBot() { const area = document.getElementById('messages-area'); if(area) setTimeout(() => { area.scrollTo({top: area.scrollHeight, behavior: 'smooth'}); }, 100); }
+
 window.handleImgAttach = async (e) => {
     const file = e.target.files[0]; if (!file || !chatId) return;
-    if (!navigator.onLine) { showToast('Image upload requires an active connection.'); return; }
     if (otherUid === 'ai_system') { showToast("Ona AI doesn't support images yet!"); return; }
     
     const btn = document.querySelector('.icon-btn'); btn.style.opacity = '0.5'; 
@@ -982,7 +826,11 @@ window.handleImgAttach = async (e) => {
         const data = await res.json();
         if (data.secure_url) {
             const ts = Date.now();
-            await processMessageSend({ senderId: me.uid, timestamp: ts, imageUrl: data.secure_url, read: false }, 'Sent an image');
+            await push(ref(db, `messages/${chatId}/msgs`), { senderId: me.uid, timestamp: ts, imageUrl: data.secure_url, read: false });
+            const ocSnap = await get(ref(db, `userChats/${otherUid}/${chatId}`));
+            const pU = (ocSnap.exists() ? ocSnap.val().unreadCount : 0) || 0;
+            const upd = {}; upd[`userChats/${me.uid}/${chatId}`] = { lastTs: ts, lastMsg: 'Sent an image', otherUid, unreadCount: 0 }; upd[`userChats/${otherUid}/${chatId}`] = { lastTs: ts, lastMsg: 'Sent an image', otherUid: me.uid, unreadCount: pU + 1 };
+            await update(ref(db), upd); scrollBot();
         }
     } catch (err) { showToast('Failed to upload image'); } finally { btn.style.opacity = '1'; e.target.value = ''; }
 };
